@@ -385,7 +385,7 @@ async function sendShare_Pay() {
                     "action": {
                       "type": "uri",
                       "label": "action",
-                      "uri": "hhttps://liff.line.me/1657615367-ndLPQL1p?auto=yes&type=text&text=%E6%88%91%E8%B6%85%E7%AC%A8%20%E6%B4%BB%E8%A9%B2%E8%A2%AB%E9%A8%99"
+                      "uri": "https://liff.line.me/1657615367-ndLPQL1p?auto=yes&type=text&text=%E6%88%91%E8%B6%85%E7%AC%A8%20%E6%B4%BB%E8%A9%B2%E8%A2%AB%E9%A8%99"
                     },
                     "position": "relative"
                   },
