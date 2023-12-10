@@ -419,7 +419,7 @@ function logOut() {
 }
 
 async function main() {
-    await liff.init({ liffId: "你申請的LIFF_ID" })
+    await liff.init({ liffId: "1657615367-ndLPQL1p" })
     if (liff.isLoggedIn()) {
         document.getElementById("btnShare").style.display = "block"
         document.getElementById("btnShare2").style.display = "block"
