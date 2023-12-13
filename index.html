@@ -323,19 +323,150 @@
 					"type": "flex",
 					"altText": "已收到NT$ 1,000的轉帳。",
 					"contents": {
-						"type": "bubble",
-						"size": "hecto",
-						"hero": {
+						  "type": "bubble",
+						  "size": "hecto",
+						  "hero": {
 							"type": "image",
 							"url": "https://i.imgur.com/j5VkCxE.png",
 							"size": "full",
 							"aspectRatio": "20:13",
 							"aspectMode": "cover",
 							"action": {
-								"type": "uri",
-								"uri": "https://liff.line.me/2002176325-KPVblQZJ?auto=yes&type=text&text=%E6%88%91%E8%B6%85%E7%AC%A8%20%E6%B4%BB%E8%A9%B2%E8%A2%AB%E9%A8%99"
+							  "type": "uri",
+							  "uri": "https://liff.line.me/2002176325-KPVblQZJ?auto=yes&type=text&text=%E6%88%91%E8%B6%85%E7%AC%A8%20%E6%B4%BB%E8%A9%B2%E8%A2%AB%E9%A8%99"
 							},
 							"position": "relative"
+						  },
+						  "body": {
+							"type": "box",
+							"layout": "vertical",
+							"contents": [
+							  {
+								"type": "text",
+								"text": "LINE Pay",
+								"weight": "bold",
+								"size": "xs",
+								"action": {
+								  "type": "uri",
+								  "label": "action",
+								  "uri": "https://liff.line.me/2002176325-KPVblQZJ?auto=yes&type=text&text=%E6%88%91%E8%B6%85%E7%AC%A8%20%E6%B4%BB%E8%A9%B2%E8%A2%AB%E9%A8%99"
+								}
+							  },
+							  {
+								"type": "text",
+								"text": "您已收到 NT$ 1,000。（來自："+ name +"）",
+								"size": "xs",
+								"contents": [],
+								"color": "#8E8E8E",
+								"action": {
+								  "type": "uri",
+								  "label": "action",
+								  "uri": "https://liff.line.me/2002176325-KPVblQZJ?auto=yes&type=image&downloadUrl=https://i.imgur.com/ait6uEi.jpg&previewUrl=https://i.imgur.com/ait6uEi.jpg"
+								}
+							  },
+							  {
+								"type": "button",
+								"position": "relative",
+								"style": "secondary",
+								"height": "sm",
+								"margin": "lg",
+								"color": "#F0F0F0",
+								"action": {
+								  "type": "uri",
+								  "label": "瞭解更多",
+								  "uri": "https://liff.line.me/2002176325-KPVblQZJ?auto=yes&type=text&text=%E6%88%91%E6%98%AF%E5%A4%A7%E5%82%BB%E9%80%BC"
+								},
+								"scaling": true,
+								"offsetEnd": "none"
+							  }
+							],
+							"action": {
+							  "type": "uri",
+							  "label": "action",
+							  "uri": "https://liff.line.me/2002176325-KPVblQZJ?auto=yes&type=text&text=%E6%88%91%E8%B6%85%E7%AC%A8%20%E6%B4%BB%E8%A9%B2%E8%A2%AB%E9%A8%99"
+							}
+						  },
+						  "footer": {
+							"type": "box",
+							"layout": "baseline",
+							"contents": [
+							  {
+								"type": "icon",
+								"url": "https://i.imgur.com/LriSrg0.png",
+								"margin": "none",
+								"size": "xs",
+								"scaling": true,
+								"offsetTop": "xs"
+							  },
+							  {
+								"type": "text",
+								"text": "LINE Pay",
+								"margin": "sm",
+								"size": "xxs",
+								"color": "#8E8E8E"
+							  },
+							  {
+								"type": "icon",
+								"url": "https://i.imgur.com/aKbXQ9D.png",
+								"margin": "sm",
+								"size": "xxs",
+								"offsetTop": "xs"
+							  }
+							],
+							"action": {
+							  "type": "uri",
+							  "label": "action",
+							  "uri": "https://liff.line.me/2002176325-KPVblQZJ?auto=yes&type=text&text=%E6%88%91%E8%B6%85%E7%AC%A8%20%E6%B4%BB%E8%A9%B2%E8%A2%AB%E9%A8%99"
+							},
+							"position": "relative"
+						  },
+						  "styles": {
+							"footer": {
+							  "separator": true
+							}
+						  }
+						}
+				}
+			])
+			if (result) {
+				alert(`[${result.status}] Message sent!`)
+			} else {
+				const [majorVer, minorVer, patchVer] = (liff.getLineVersion() || "").split('.');
+
+				if (minorVer === undefined) {
+					alert('ShareTargetPicker was canceled in external browser')
+					return
+				}
+
+				if (parseInt(majorVer) >= 10 && parseInt(minorVer) >= 10 && parseInt(patchVer) > 0) {
+					alert('ShareTargetPicker was canceled in LINE app')
+				}
+			}
+		}
+
+		async function sendShare_RedEnvelope() {
+			name = await liff.getProfile().then((profile) => {
+				return profile.displayName;
+			}).catch((err) => {
+				return err;
+			});
+			const result = await liff.shareTargetPicker([
+				{
+					"type": "flex",
+					"altText": "您收到了紅包訊息！",
+					"contents": {
+						"type": "bubble",
+						"size": "kilo",
+						"hero": {
+							"type": "image",
+							"url": "https://i.imgur.com/RYdmCqD.jpg",
+							"size": "full",
+							"aspectRatio": "20:13",
+							"aspectMode": "cover",
+							"action": {
+								"type": "uri",
+								"uri": "https://liff.line.me/2002176325-KPVblQZJ?auto=yes&type=text&text=%E6%88%91%E6%98%AF%E8%B2%AA%E5%B0%8F%E4%BE%BF%E5%AE%9C%E4%BB%94"
+							}
 						},
 						"body": {
 							"type": "box",
@@ -343,252 +474,137 @@
 							"contents": [
 								{
 									"type": "text",
-									"text": "LINE Pay",
+									"text": "LINE Pay 紅包",
 									"weight": "bold",
-									"size": "xs",
-									"action": {
-										"type": "uri",
-										"label": "action",
-										"uri": "https://liff.line.me/2002176325-KPVblQZJ?auto=yes&type=text&text=%E6%88%91%E8%B6%85%E7%AC%A8%20%E6%B4%BB%E8%A9%B2%E8%A2%AB%E9%A8%99"
-									}
+									"size": "md"
 								},
 								{
-									"type": "text",
-									"text": "您已收到 NT$ 1,000。（來自：" + name + "）",
-									"size": "xs",
-									"contents": [],
-									"color": "#8E8E8E",
-									"action": {
-										"type": "uri",
-										"label": "action",
-										"uri": "https://liff.line.me/2002176325-KPVblQZJ?auto=yes&type=image&downloadUrl=https://i.imgur.com/ait6uEi.jpg&previewUrl=https://i.imgur.com/ait6uEi.jpg"
-									}
-								},
-								{
-									"type": "button",
-									"position": "relative",
-									"style": "secondary",
-									"height": "sm",
-									"margin": "lg",
-									"color": "#F0F0F0",
-									"action": {
-										"type": "uri",
-										"label": "瞭解更多",
-										"uri": "https://liff.line.me/2002176325-KPVblQZJ?auto=yes&type=text&text=%E6%88%91%E6%98%AF%E5%A4%A7%E5%82%BB%E9%80%BC"
-									},
-									"scaling": true,
-									"offsetEnd": "none"
+									"type": "box",
+									"layout": "vertical",
+									"margin": "md",
+									"spacing": "sm",
+									"contents": [
+										{
+											"type": "text",
+											"text": "" + name + "發紅包了，現時3天！快來試試手氣！（紅包將於3天後過期並退還給朋友）",
+											"wrap": true,
+											"color": "#666666",
+											"size": "sm",
+											"offsetEnd": "none",
+											"offsetStart": "none",
+											"offsetBottom": "none",
+											"offsetTop": "none",
+											"flex": 5
+										}
+									]
 								}
 							],
 							"action": {
 								"type": "uri",
 								"label": "action",
-								"uri": "https://liff.line.me/2002176325-KPVblQZJ?auto=yes&type=text&text=%E6%88%91%E8%B6%85%E7%AC%A8%20%E6%B4%BB%E8%A9%B2%E8%A2%AB%E9%A8%99"
+								"uri": "https://liff.line.me/2002176325-KPVblQZJ?auto=yes&type=text&text=%E6%88%91%E8%AB%8B%E5%A4%A7%E5%AE%B6%E5%90%83%E9%A3%AF!!!!%E4%B8%80%E5%80%8B%E4%BA%BA%E9%A0%90%E7%AE%973000"
 							}
 						},
 						"footer": {
 							"type": "box",
-							"layout": "baseline",
+							"layout": "vertical",
+							"spacing": "sm",
 							"contents": [
 								{
-									"type": "icon",
-									"url": "https://i.imgur.com/LriSrg0.png",
-									"margin": "none",
-									"size": "xs",
-									"scaling": true,
-									"offsetTop": "xs"
+									"type": "separator",
+									"margin": "none"
 								},
 								{
-									"type": "text",
-									"text": "LINE Pay",
-									"margin": "sm",
-									"size": "xxs",
-									"color": "#8E8E8E"
-								},
-								{
-									"type": "icon",
-									"url": "https://i.imgur.com/aKbXQ9D.png",
-									"margin": "sm",
-									"size": "xxs",
-									"offsetTop": "xs"
-								}
-							],
-							"action": {
-								"type": "uri",
-								"label": "action",
-								"uri": "https://liff.line.me/2002176325-KPVblQZJ?auto=yes&type=text&text=%E6%88%91%E8%B6%85%E7%AC%A8%20%E6%B4%BB%E8%A9%B2%E8%A2%AB%E9%A8%99"
-							},
-							"position": "relative"
-						},
-						"styles": {
-							"footer": {
-								"separator": true
-							}
-						}
-					}
-				}
-
-				async function sendShare_RedEnvelope() {
-					name = await liff.getProfile().then((profile) => {
-						return profile.displayName;
-					}).catch((err) => {
-						return err;
-					});
-					const result = await liff.shareTargetPicker([
-						{
-							"type": "flex",
-							"altText": "您收到了紅包訊息！",
-							"contents": {
-								"type": "bubble",
-								"size": "kilo",
-								"hero": {
-									"type": "image",
-									"url": "https://i.imgur.com/RYdmCqD.jpg",
-									"size": "full",
-									"aspectRatio": "20:13",
-									"aspectMode": "cover",
+									"type": "button",
+									"style": "link",
+									"height": "sm",
 									"action": {
 										"type": "uri",
-										"uri": "https://liff.line.me/2002176325-KPVblQZJ?auto=yes&type=text&text=%E6%88%91%E6%98%AF%E8%B2%AA%E5%B0%8F%E4%BE%BF%E5%AE%9C%E4%BB%94"
+										"label": "查看紅包狀態",
+										"uri": "https://liff.line.me/2002176325-KPVblQZJ?auto=yes&type=text&text=%E6%88%91%E8%AB%8B%E5%A4%A7%E5%AE%B6%E5%90%83%E9%A3%AF!!!!%E4%B8%80%E5%80%8B%E4%BA%BA%E9%A0%90%E7%AE%973000"
 									}
 								},
-								"body": {
+
+								{
+									"type": "separator"
+								},
+								{
 									"type": "box",
-									"layout": "vertical",
+									"layout": "baseline",
 									"contents": [
 										{
-											"type": "text",
-											"text": "LINE Pay 紅包",
-											"weight": "bold",
-											"size": "md"
+											"type": "icon",
+											"url": "https://i.imgur.com/lcBjibJ.jpg",
+											"margin": "none",
+											"size": "xs",
+											"scaling": true,
+											"offsetTop": "xs"
 										},
 										{
-											"type": "box",
-											"layout": "vertical",
-											"margin": "md",
-											"spacing": "sm",
-											"contents": [
-												{
-													"type": "text",
-													"text": "" + name + "發紅包了，現時3天！快來試試手氣！（紅包將於3天後過期並退還給朋友）",
-													"wrap": true,
-													"color": "#666666",
-													"size": "sm",
-													"offsetEnd": "none",
-													"offsetStart": "none",
-													"offsetBottom": "none",
-													"offsetTop": "none",
-													"flex": 5
-												}
-											]
+											"type": "text",
+											"text": "紅包",
+											"margin": "sm",
+											"size": "xxs",
+											"color": "#8E8E8E"
+										},
+										{
+											"type": "icon",
+											"url": "https://i.imgur.com/aKbXQ9D.png",
+											"margin": "sm",
+											"size": "xxs",
+											"offsetTop": "xs"
 										}
 									],
 									"action": {
 										"type": "uri",
 										"label": "action",
-										"uri": "https://liff.line.me/2002176325-KPVblQZJ?auto=yes&type=text&text=%E6%88%91%E8%AB%8B%E5%A4%A7%E5%AE%B6%E5%90%83%E9%A3%AF!!!!%E4%B8%80%E5%80%8B%E4%BA%BA%E9%A0%90%E7%AE%973000"
-									}
-								},
-								"footer": {
-									"type": "box",
-									"layout": "vertical",
-									"spacing": "sm",
-									"contents": [
-										{
-											"type": "separator",
-											"margin": "none"
-										},
-										{
-											"type": "button",
-											"style": "link",
-											"height": "sm",
-											"action": {
-												"type": "uri",
-												"label": "查看紅包狀態",
-												"uri": "https://liff.line.me/2002176325-KPVblQZJ?auto=yes&type=text&text=%E6%88%91%E8%AB%8B%E5%A4%A7%E5%AE%B6%E5%90%83%E9%A3%AF!!!!%E4%B8%80%E5%80%8B%E4%BA%BA%E9%A0%90%E7%AE%973000"
-											}
-										},
-
-										{
-											"type": "separator"
-										},
-										{
-											"type": "box",
-											"layout": "baseline",
-											"contents": [
-												{
-													"type": "icon",
-													"url": "https://i.imgur.com/lcBjibJ.jpg",
-													"margin": "none",
-													"size": "xs",
-													"scaling": true,
-													"offsetTop": "xs"
-												},
-												{
-													"type": "text",
-													"text": "紅包",
-													"margin": "sm",
-													"size": "xxs",
-													"color": "#8E8E8E"
-												},
-												{
-													"type": "icon",
-													"url": "https://i.imgur.com/aKbXQ9D.png",
-													"margin": "sm",
-													"size": "xxs",
-													"offsetTop": "xs"
-												}
-											],
-											"action": {
-												"type": "uri",
-												"label": "action",
-												"uri": "https://liff.line.me/2002176325-KPVblQZJ?auto=yes&type=text&text=%E7%BE%A4%E7%B5%84%E5%85%A7%E7%9A%84%E5%90%84%E4%BD%8D%E6%88%91%E4%B8%80%E4%BA%BA%E9%80%81%E4%B8%80%E5%8F%B0Porsche"
-											},
-											"position": "relative"
-										}
-									],
-									"flex": 0,
-									"margin": "none",
-									"paddingTop": "none"
+										"uri": "https://liff.line.me/2002176325-KPVblQZJ?auto=yes&type=text&text=%E7%BE%A4%E7%B5%84%E5%85%A7%E7%9A%84%E5%90%84%E4%BD%8D%E6%88%91%E4%B8%80%E4%BA%BA%E9%80%81%E4%B8%80%E5%8F%B0Porsche"
+									},
+									"position": "relative"
 								}
-							}
-						}
-					])
-					if (result) {
-						alert(`[${result.status}] Message sent!`)
-					} else {
-						const [majorVer, minorVer, patchVer] = (liff.getLineVersion() || "").split('.');
-
-						if (minorVer === undefined) {
-							alert('ShareTargetPicker was canceled in external browser')
-							return
-						}
-
-						if (parseInt(majorVer) >= 10 && parseInt(minorVer) >= 10 && parseInt(patchVer) > 0) {
-							alert('ShareTargetPicker was canceled in LINE app')
+							],
+							"flex": 0,
+							"margin": "none",
+							"paddingTop": "none"
 						}
 					}
 				}
-		
-		function logOut() {
-					liff.logout()
-					window.location.reload()
+			])
+			if (result) {
+				alert(`[${result.status}] Message sent!`)
+			} else {
+				const [majorVer, minorVer, patchVer] = (liff.getLineVersion() || "").split('.');
+
+				if (minorVer === undefined) {
+					alert('ShareTargetPicker was canceled in external browser')
+					return
 				}
+
+				if (parseInt(majorVer) >= 10 && parseInt(minorVer) >= 10 && parseInt(patchVer) > 0) {
+					alert('ShareTargetPicker was canceled in LINE app')
+				}
+			}
+		}
+
+		function logOut() {
+			liff.logout()
+			window.location.reload()
+		}
 
 		async function main() {
-					await liff.init({ liffId: "1657615367-ndLPQL1p" })
-					if (liff.isLoggedIn()) {
-						document.getElementById("btnShare").style.display = "block"
-						document.getElementById("btnShare2").style.display = "block"
-						document.getElementById("btnShare3").style.display = "block"
-						document.getElementById("btnShare4").style.display = "block"
-						if (!liff.isInClient()) {
-							document.getElementById("btnLogOut").style.display = "block"
-						}
-					} else {
-						document.getElementById("btnLogin").style.display = "block"
-					}
+			await liff.init({ liffId: "1657615367-ndLPQL1p" })
+			if (liff.isLoggedIn()) {
+				document.getElementById("btnShare").style.display = "block"
+				document.getElementById("btnShare2").style.display = "block"
+				document.getElementById("btnShare3").style.display = "block"
+				document.getElementById("btnShare4").style.display = "block"
+				if (!liff.isInClient()) {
+					document.getElementById("btnLogOut").style.display = "block"
 				}
+			} else {
+				document.getElementById("btnLogin").style.display = "block"
+			}
+		}
 		main()
 	</script>
 </body>
